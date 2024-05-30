@@ -1,0 +1,2 @@
+module VenueAdmins::RegistrationsHelper
+end

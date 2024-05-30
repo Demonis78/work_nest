@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_29_135353) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_105200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "addressable_type", null: false
+    t.bigint "addressable_id", null: false
+    t.string "street"
+    t.string "city"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "venue_admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_29_135353) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "company_name"
     t.index ["email"], name: "index_venue_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_venue_admins_on_reset_password_token", unique: true
   end
