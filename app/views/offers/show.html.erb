@@ -1,0 +1,12 @@
+<h1><%= @offer.title %></h1>
+<p><%= @offer.description %></p>
+<p>Price: $<%= @offer.price %></p>
+
+<h2>Add-ons</h2>
+<% @offer.variants.each do |variant| %>
+  <div>
+    <p><%= variant.name %> - $<%= variant.price %></p>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Offers', offers_path %>
