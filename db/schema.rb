@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_110652) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_112019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_110652) do
     t.index ["venue_id"], name: "index_offers_on_venue_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "duration"
+    t.bigint "offer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_orders_on_offer_id"
+  end
+
   create_table "variants", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
@@ -59,6 +67,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_110652) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "company_name"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_venue_admins_on_company_id"
     t.index ["email"], name: "index_venue_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_venue_admins_on_reset_password_token", unique: true
   end
@@ -71,5 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_110652) do
   end
 
   add_foreign_key "offers", "venues"
+  add_foreign_key "orders", "offers"
   add_foreign_key "variants", "offers"
+  add_foreign_key "venue_admins", "companies"
 end

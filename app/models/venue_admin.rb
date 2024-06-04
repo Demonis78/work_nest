@@ -1,7 +1,8 @@
 class VenueAdmin < ApplicationRecord
-  belongs_to :company
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  belongs_to :company
 
   validates :company_name, presence: true
 end

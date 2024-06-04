@@ -6,3 +6,5 @@ class Venue < ApplicationRecord
 
   validates :name, :description, presence: true
 end
+
+

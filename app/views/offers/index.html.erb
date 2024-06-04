@@ -1,19 +1,11 @@
-<h1>Available Offers</h1>
-
-<% @venues.each do |venue| %>
-  <div>
-    <h2><%= venue.name %></h2>
-    <p><%= venue.description %></p>
-    <p>Location: <%= venue.address.street %>, <%= venue.address.city %>, <%= venue.address.country %></p>
-    <h3>Offers:</h3>
-    <ul>
-      <% venue.offers.each do |offer| %>
-        <li>
-          <h4><%= link_to offer.title, offer_path(offer) %></h4>
-          <p><%= offer.description %></p>
-          <p>Price: $<%= offer.price %></p>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+<% if @offers.present? %>
+  <% @offers.each do |offer| %>
+    <div>
+      <h2><%= offer.title %></h2>
+      <p><%= offer.description %></p>
+      <p>Price: $<%= offer.price %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>No offers available.</p>
 <% end %>

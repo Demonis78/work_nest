@@ -3,3 +3,4 @@ class Address < ApplicationRecord
 
   validates :street, :city, :country, presence: true
 end
+

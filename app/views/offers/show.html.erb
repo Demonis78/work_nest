@@ -1,12 +1,18 @@
-<h1><%= @offer.title %></h1>
-<p><%= @offer.description %></p>
-<p>Price: $<%= @offer.price %></p>
+<turbo-frame id="<%= dom_id(@offer) %>">
+  <h1><%= @offer.title %></h1>
+  <p><%= @offer.description %></p>
+  <p>Price: $<%= @offer.price %></p>
+</turbo-frame>
 
-<h2>Add-ons</h2>
-<% @offer.variants.each do |variant| %>
+<%= form_with model: [@offer, @offer.orders.build], local: true do |form| %>
   <div>
-    <p><%= variant.name %> - $<%= variant.price %></p>
+    <%= form.radio_button :duration, 'day' %>
+    <%= form.label :duration_day, 'Per Day' %>
+    
+    <%= form.radio_button :duration, 'month' %>
+    <%= form.label :duration_month, 'Per Month' %>
   </div>
+
+  <%= form.submit 'Place Order', class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to 'Back to Offers', offers_path %>

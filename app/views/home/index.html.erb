@@ -1,5 +1,18 @@
-<h1>Welcome to Work_nest app</h1>
 <% if venue_admin_signed_in? %>
   <p>Logged in as <%= current_venue_admin.email %></p>
-  <%= link_to 'Logout', destroy_venue_admin_session_path, method: :delete %>
+<% end %>
+  <h1>Welcome to Work Nest</h1>
+
+  <h1>Available Offers</h1>
+
+  <% if @offers.empty? %>
+    <p>No offers available.</p>
+  <% else %>
+    <ul>
+      <% @offers.each do |offer| %>
+        <li>
+          <h4><%= link_to offer.title, offer_path(offer) %></h4>
+        </li>
+      <% end %>
+    </ul>
 <% end %>

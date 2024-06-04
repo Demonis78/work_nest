@@ -3,3 +3,4 @@ class Variant < ApplicationRecord
 
   validates :name, :price, presence: true
 end
+
