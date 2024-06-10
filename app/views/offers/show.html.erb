@@ -1,18 +1,15 @@
-<turbo-frame id="<%= dom_id(@offer) %>">
-  <h1><%= @offer.title %></h1>
-  <p><%= @offer.description %></p>
-  <p>Price: $<%= @offer.price %></p>
-</turbo-frame>
+<h1><%= @offer.title %></h1>
+<p><%= @offer.description %></p>
 
-<%= form_with model: [@offer, @offer.orders.build], local: true do |form| %>
+<h2>Variants</h2>
+<% @offer.variants.each do |variant| %>
   <div>
-    <%= form.radio_button :duration, 'day' %>
-    <%= form.label :duration_day, 'Per Day' %>
-    
-    <%= form.radio_button :duration, 'month' %>
-    <%= form.label :duration_month, 'Per Month' %>
+    <p>Variant: <%= variant.name %></p>
+    <p>Price: <%= number_to_currency(variant.price) %></p>
+    <p>Period: <%= variant.period %></p>
+    <%= link_to 'Delete Variant', offer_variant_path(@offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   </div>
-
-  <%= form.submit 'Place Order', class: 'btn btn-primary' %>
 <% end %>
 
+<%= link_to 'New Variant', new_offer_variant_path(@offer), class: 'btn btn-secondary' %>
+<%= link_to 'Back to Offers', venue_offers_path(@offer.venue), class: 'btn btn-secondary' %>

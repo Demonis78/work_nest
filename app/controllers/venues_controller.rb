@@ -5,6 +5,11 @@ class VenuesController < ApplicationController
     @venues = Venue.all.sort_by(&:name)
   end
 
+  def show
+    @venue = Venue.find(params[:id])
+    @offers = @venue.offers.includes(:variants)
+  end
+  
   def new
     @venue = Venue.new
     @venue.build_address
@@ -44,6 +49,6 @@ class VenuesController < ApplicationController
   end
 
   def venue_params
-    params.require(:venue).permit(:name, :description, address_attributes: [:street, :city, :state, :country])
+    params.require(:venue).permit(:name, :description, address_attributes: [:street, :city, :country])
   end
 end

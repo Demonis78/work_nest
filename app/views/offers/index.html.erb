@@ -1,11 +1,21 @@
-<% if @offers.present? %>
-  <% @offers.each do |offer| %>
-    <div>
-      <h2><%= offer.title %></h2>
-      <p><%= offer.description %></p>
-      <p>Price: $<%= offer.price %></p>
-    </div>
-  <% end %>
-<% else %>
+<h1>Available Offers</h1>
+
+<% if @offers.empty? %>
   <p>No offers available.</p>
+<% else %>
+  <ul>
+    <% @offers.each do |offer| %>
+      <li>
+        <h2><%= link_to offer.title, offer_path(offer) %></h2>
+        <p><%= offer.description %></p>
+        <% offer.variants.each do |variant| %>
+          <div>
+            <p>Variant: <%= variant.name %></p>
+            <p>Price: <%= number_to_currency(variant.price) %></p>
+            <p>Period: <%= variant.period %></p>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

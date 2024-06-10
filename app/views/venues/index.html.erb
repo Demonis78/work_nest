@@ -5,11 +5,12 @@
 <ul>
   <% @venues.each do |venue| %>
     <li>
-      <h2><%= venue.name %></h2>
+      <h2><%= link_to venue.name, venue_path(venue) %></h2>
       <p><%= venue.description %></p>
       <p><%= venue.address.street %>, <%= venue.address.city %>, <%= venue.address.country %></p>
       <%= link_to 'Edit', edit_venue_path(venue) %> 
       <%= link_to 'Delete', venue, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'New Offer', new_venue_offer_path(venue), class: 'btn btn-success' %>
     </li>
   <% end %>
 </ul>

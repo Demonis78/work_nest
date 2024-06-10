@@ -1,5 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :set_offer
+  before_action :authenticate_venue_admin!
+  before_action :set_offer, expect: [:new, :create]
+
+  def new
+    @order = Order.new
+  end
 
   def create
     @order = @offer.orders.build(order_params)

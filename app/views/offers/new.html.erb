@@ -1,20 +1,30 @@
-<% if @venue %>
-  <h1>New Offer for <%= @venue.name %></h1>
-  <%= form_with(model: [@venue, @offer], local: true) do |form| %>
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title, required: true %>
+<h1>New Offer</h1>
+
+<%= form_with(model: [@venue, @offer], local: true) do |form| %>
+  <% if @offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+      <ul>
+        <% @offer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_area :description, required: true %>
-    </div>
-    <div class="field">
-      <%= form.label :price %>
-      <%= form.number_field :price, step: 0.01, required: true %>
-    </div>
-    <%= form.submit 'Create Offer', class: 'btn btn-primary' %>
   <% end %>
-<% else %>
-  <p>Please select a valid venue to create an offer.</p>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Offer' %>
+  </div>
 <% end %>
+
+<%= link_to 'Back', venue_offers_path(@venue) %>

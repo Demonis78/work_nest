@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_112019) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_115151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,7 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_112019) do
   create_table "offers", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.decimal "price"
     t.bigint "venue_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,19 +41,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_112019) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "duration"
+    t.string "period"
     t.bigint "offer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_id"
     t.index ["offer_id"], name: "index_orders_on_offer_id"
+    t.index ["variant_id"], name: "index_orders_on_variant_id"
   end
 
   create_table "variants", force: :cascade do |t|
     t.string "name"
-    t.decimal "price"
+    t.integer "price"
     t.bigint "offer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "period"
     t.index ["offer_id"], name: "index_variants_on_offer_id"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_112019) do
 
   add_foreign_key "offers", "venues"
   add_foreign_key "orders", "offers"
+  add_foreign_key "orders", "variants"
   add_foreign_key "variants", "offers"
   add_foreign_key "venue_admins", "companies"
 end

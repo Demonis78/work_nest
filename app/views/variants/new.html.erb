@@ -1,6 +1,17 @@
-<h1>New Variant</h1>
+<h1>New Variant for <%= @offer.title %></h1>
 
 <%= form_with(model: [@offer, @variant], local: true) do |form| %>
+  <% if @variant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@variant.errors.count, "error") %> prohibited this variant from being saved:</h2>
+      <ul>
+        <% @variant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -8,10 +19,17 @@
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :period %>
+    <%= form.select :period, options_for_select([['Per Day', 'day'], ['Per Month', 'month']]) %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Create Variant' %>
   </div>
 <% end %>
+
+<%= link_to 'Back', offer_path(@offer) %>

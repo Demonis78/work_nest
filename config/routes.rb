@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :venue_admins, controllers: {
     registrations: 'venue_admins/registrations'
   }
+  
+  devise_scope :venue_admin do
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout
+  end
 
   resources :companies, only: [:new, :create]
 
@@ -9,8 +13,12 @@ Rails.application.routes.draw do
     resources :offers, only: [:new, :create, :index, :show]
   end
 
-  resources :offers, only: [:index, :show, :new, :create] do
-    resources :orders, only: [:create]
+  resources :offers, only: [:new, :create, :index, :show] do
+    resources :variants, only: [:new, :create, :destroy]
+  end
+
+  resources :variants, only: [] do
+    resources :orders, only: [:new, :create, :show]
   end
 
   get 'home/index'

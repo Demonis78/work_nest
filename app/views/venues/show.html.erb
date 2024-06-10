@@ -1,0 +1,19 @@
+<h1><%= @venue.name %></h1>
+<p><%= @venue.description %></p>
+
+<h2>Offers</h2>
+<% @offers.each do |offer| %>
+  <div>
+    <h3><%= link_to offer.title, venue_offer_path(@venue, offer) %></h3>
+    <p><%= offer.description %></p>
+    <% offer.variants.each do |variant| %>
+      <div>
+        <p>Variant: <%= variant.name %></p>
+        <p>Price: <%= number_to_currency(variant.price) %></p>
+        <p>Period: <%= variant.period %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Venues', venues_path, class: 'btn btn-secondary' %>
