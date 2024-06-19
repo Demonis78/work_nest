@@ -1,0 +1,7 @@
+<%= turbo_stream.append 'companies' %>
+  <%= render @company %>
+<% end %>
+
+<%= turbo_stream.update 'notice-container' do %>
+  <div class="notice">Company was successfully created.</div>
+<% end %>

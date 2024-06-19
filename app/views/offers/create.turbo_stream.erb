@@ -1,0 +1,7 @@
+<%= turbo_stream.append "offers" do %>
+  <%= render @offer %>
+<% end %>
+
+<%= turbo_stream.update "notice-container" do %>
+  <div class="notice">Offer was successfully created.</div>
+<% end %>

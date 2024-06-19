@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :offers, only: [:new, :create, :index, :show]
   end
 
-  resources :offers, only: [:new, :create, :index, :show] do
+  resources :offers, only: [:new, :create, :index, :show, :destroy] do
     resources :variants, only: [:new, :create, :destroy]
   end
 

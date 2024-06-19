@@ -1,29 +1,7 @@
 <h1>New Company</h1>
 
-<%= form_with(model: @company, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <%= form.fields_for :address do |address_form| %>
-    <div class="field">
-      <%= address_form.label :street %>
-      <%= address_form.text_field :street %>
-    </div>
-
-    <div class="field">
-      <%= address_form.label :city %>
-      <%= address_form.text_field :city %>
-    </div>
-
-    <div class="field">
-      <%= address_form.label :country %>
-      <%= address_form.text_field :country %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= turbo_frame_tag "new_company" do %>
+  <%= render 'form', company: @company %>
 <% end %>
+
+<%= link_to 'Back', root_path %>

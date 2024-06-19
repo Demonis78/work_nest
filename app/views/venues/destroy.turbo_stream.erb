@@ -1,0 +1,7 @@
+<%= turbo_stream.remove dom_id(@venue) %>
+  <%= render @venue %>
+<% end %>
+
+<%= turbo_stream.update "notice-container" do %>
+  <div class="notice">Venue was successfully deleted.</div>
+<% end %>

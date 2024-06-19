@@ -1,0 +1,5 @@
+<%= turbo_stream.remove dom_id(@offer) %>
+
+<%= turbo_stream.update "notice-container" do %>
+  <div class="notice">Offer was successfully deleted.</div>
+<% end %>

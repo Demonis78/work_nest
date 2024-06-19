@@ -2,14 +2,9 @@
 <p><%= @offer.description %></p>
 
 <h2>Variants</h2>
-<% @offer.variants.each do |variant| %>
-  <div>
-    <p>Variant: <%= variant.name %></p>
-    <p>Price: <%= number_to_currency(variant.price) %></p>
-    <p>Period: <%= variant.period %></p>
-    <%= link_to 'Delete Variant', offer_variant_path(@offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-  </div>
-<% end %>
+  <%= turbo_frame_tag "variants" do %>
+    <%= render @offer.variants %>
+  <% end %>
 
 <%= link_to 'New Variant', new_offer_variant_path(@offer), class: 'btn btn-secondary' %>
 <%= link_to 'Back to Offers', venue_offers_path(@offer.venue), class: 'btn btn-secondary' %>

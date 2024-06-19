@@ -1,0 +1,7 @@
+<%= turbo_stream.append "venues" do %>
+  <%= render @venue %>
+<% end %>
+
+<%= turbo_stream.update "notice-container" do %>
+  <div class="notice">Venue was successfully created.</div>
+<% end %>

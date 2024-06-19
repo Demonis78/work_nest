@@ -1,34 +1,5 @@
 <h1>Edit Venue</h1>
 
-<%= form_with(model: @venue, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+<%= render 'form', venue: @venue %>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="fields">
-    <%= form.fields_for :address do |addr_form| %>
-      <div class="field">
-        <%= addr_form.label :street %>
-        <%= addr_form.text_field :street %>
-      </div>
-      <div class="field">
-        <%= addr_form.label :city %>
-        <%= addr_form.text_field :city %>
-      </div>
-      <div class="field">
-        <%= addr_form.label :country %>
-        <%= addr_form.text_field :country %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Update Venue' %>
-  </div>
-<% end %>
+<%= link_to 'Back', venue_path(@venue) %>

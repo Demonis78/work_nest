@@ -7,9 +7,15 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     if @company.save
-      redirect_to root_path, notice: 'Company was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Company was successfully created.' }
+        format.turbo_stream
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_company", partial: "companies/form", locals: { company: @company }) }
+      end
     end
   end
 

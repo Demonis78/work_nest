@@ -18,7 +18,10 @@ class VenuesController < ApplicationController
   def create
     @venue = Venue.new(venue_params)
     if @venue.save
-      redirect_to venues_path, notice: 'Venue was successfully created.'
+      respond_to do |format|
+        format.html {redirect_to @venue, notice: 'Venue was successfully created.'}
+        format.turbo_stream
+      end
     else
       render :new
     end
@@ -29,7 +32,10 @@ class VenuesController < ApplicationController
 
   def update
     if @venue.update(venue_params)
-      redirect_to venues_path, notice: 'Venue was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to venues_path, notice: 'Venue was successfully updated.' }
+        format.turbo_stream
+      end
     else
       render :edit
     end
@@ -37,7 +43,10 @@ class VenuesController < ApplicationController
 
   def destroy
     @venue.destroy
-    redirect_to venues_path, notice: 'Venue was successfully deleted.'
+    respond_to do |format|
+      format.html { redirect_to venues_path, notice: 'Venue was successfully deleted.' }
+      format.turbo_stream
+    end
   end
 
   private

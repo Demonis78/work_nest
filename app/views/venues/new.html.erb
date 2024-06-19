@@ -1,34 +1,7 @@
 <h1>New Venue</h1>
 
-<%= form_with(model: @venue, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <%= form.fields_for :address do |address_form| %>
-    <div class="field">
-      <%= address_form.label :street %>
-      <%= address_form.text_field :street %>
-    </div>
-
-    <div class="field">
-      <%= address_form.label :city %>
-      <%= address_form.text_field :city %>
-    </div>
-
-    <div class="field">
-      <%= address_form.label :country %>
-      <%= address_form.text_field :country %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= turbo_frame_tag "new_venue" do %>
+  <%= render 'form', venue: @venue %>
 <% end %>
+
+<%= link_to 'Back', venues_path %>

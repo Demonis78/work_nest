@@ -10,7 +10,10 @@ class VariantsController < ApplicationController
   def create
     @variant = @offer.variants.build(variant_params)
     if @variant.save
-      redirect_to @offer, notice: 'Variant was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @offer, notice: 'Variant was successfully created.' }
+        format.turbo_stream
+      end
     else
       render :new
     end
@@ -19,12 +22,18 @@ class VariantsController < ApplicationController
   def destroy
     if @variant
       @variant.destroy
-      redirect_to @variant.offer, notice: 'Variant was successfully deleted.'
+      respond_to do |format|
+        format.html { redirect_to @variant.offer, notice: 'Variant was successfully deleted.' }
+        format.turbo_stream
+      end
     else
-      redirect_to root_path, alert: 'Variant not found.'
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: 'Variant not found.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("notice-container", partial: "shared/flash", locals: { flash: { alert: 'Variant not found.' } }) }
+      end
     end
   end
-
+  
   private
 
   def set_offer

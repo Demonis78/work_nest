@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@venue) do %>
+  <%=  render @venue %>
+<% end %>
+
+<%= turbo_stream.update "notice-container" do %>
+  <div class="notice">Venue was successfully updated.</div>
+<% end %>

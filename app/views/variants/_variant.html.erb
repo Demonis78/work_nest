@@ -1,0 +1,6 @@
+<div id="<%= dom_id(variant) %>">
+  <p>Name: <%= variant.name %></p>
+  <p>Price: <%= number_to_currency(variant.price) %></p>
+  <p>Period: <%= variant.period %></p>
+  <%= link_to 'Delete Variant', offer_variant_path(variant.offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>

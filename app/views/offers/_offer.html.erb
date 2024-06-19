@@ -1,0 +1,12 @@
+<div id="<%= dom_id(offer) %>">
+  <h3><%= link_to offer.title, venue_offer_path(offer.venue, offer) %></h3>
+  <p><%= offer.description %></p>
+  <% offer.variants.each do |variant| %>
+    <div>
+      <p>Variant: <%= variant.name %></p>
+      <p>Price: <%= number_to_currency(variant.price) %></p>
+      <p>Period: <%= variant.period %></p>
+    </div>
+  <% end %>
+  <%= link_to 'Delete Offer', offer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>
