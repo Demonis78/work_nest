@@ -6,5 +6,5 @@
     <%= render @offer.variants %>
   <% end %>
 
-<%= link_to 'New Variant', new_offer_variant_path(@offer), class: 'btn btn-secondary' %>
-<%= link_to 'Back to Offers', venue_offers_path(@offer.venue), class: 'btn btn-secondary' %>
+<%= link_to 'New Variant', new_offer_variant_path(@offer), class: 'btn btn-outline-secondary btn-sm' %>
+<%= link_to 'Back to Offers', venue_offers_path(@offer.venue), class: 'btn btn-outline-secondary btn-sm' %>

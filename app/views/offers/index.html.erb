@@ -1,21 +1,24 @@
-<h1>Available Offers</h1>
+<h1>All Offers</h1>
 
-<% if @offers.empty? %>
-  <p>No offers available.</p>
-<% else %>
-  <ul>
-    <% @offers.each do |offer| %>
-      <li>
-        <h2><%= link_to offer.title, offer_path(offer) %></h2>
-        <p><%= offer.description %></p>
-        <% offer.variants.each do |variant| %>
-          <div>
-            <p>Variant: <%= variant.name %></p>
-            <p>Price: <%= number_to_currency(variant.price) %></p>
-            <p>Period: <%= variant.period %></p>
-          </div>
-        <% end %>
-      </li>
+<%= link_to 'New Offer', new_offer_path, class: 'btn btn-primary' %>
+
+<% @offers.each do |offer| %>
+  <div class="offer">
+    <h2><%= link_to offer.title, offer_path(offer) %></h2>
+    
+    <% if offer.venue %>
+      <p>Venue: <%= link_to offer.venue.name, venue_path(offer.venue) %></p>
+      <p>Address: <%= offer.venue.address.street %>, <%= offer.venue.address.city %>, <%= offer.venue.address.country %></p>
     <% end %>
-  </ul>
+    
+    <% offer.variants.each do |variant| %>
+      <div class="variant">
+        <p>Variant:</p>
+        <p><%= variant.name %></p>
+        <p>Price: <%= number_to_currency(variant.price) %></p>
+        <p>Period: <%= variant.period %></p>
+        <%= button_to 'Select Variant', select_variant_offer_path(offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

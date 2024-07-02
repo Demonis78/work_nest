@@ -1,23 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>WorkNest</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Work Nest</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module", defer: true %>
+</head>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <%= link_to 'Home', root_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Venues', venues_path, class: "nav-link" %>
+            </li>
+            <% if venue_admin_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'Logout', logout_path, method: :delete, class: "nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Login', new_venue_admin_session_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign Up', new_venue_admin_registration_path, class: "nav-link" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module' %>
-  </head>
+  <main class="container mt-4">
+    <div id="notice-container"><%= notice %></div>
+    <div class="content">
+      <%= yield %>
+    </div>
+  </main>
 
-  <body>
-    <%= render 'layouts/header' %> 
-
-    <div id="notice-container"></div>
-
-    <%= yield %>
-  </body>
+  <footer class="footer bg-dark text-white text-center mt-auto">
+    <p>&copy; 2024 MyApp. All rights reserved.</p>
+  </footer>
+</body>
 </html>

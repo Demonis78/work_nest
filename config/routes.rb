@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   resources :offers, only: [:new, :create, :index, :show, :destroy] do
     resources :variants, only: [:new, :create, :destroy]
+    member do
+      post 'select_variant'
   end
+end
 
   resources :variants, only: [] do
     resources :orders, only: [:new, :create, :show]

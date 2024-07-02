@@ -70,3 +70,8 @@ group :test do
 end
 
 gem "devise"
+gem 'bootstrap', '~> 5.1.3'
+gem 'jquery-rails'
+gem 'sassc', '~> 2.4'
+gem 'htmlbeautifier'
+

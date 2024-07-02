@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   before_action :authenticate_venue_admin!
   before_action :set_venue, only: [:new, :create]
-  before_action :set_offer, only: [:show, :destroy]
+  before_action :set_offer, only: [:show, :destroy, :select_variant]
   
   def index
     if params[:venue_id]
@@ -14,6 +14,7 @@ class OffersController < ApplicationController
 
   def show
     @offer = Offer.find(params[:id])
+    @variants ||= @offer.variants.order(price: :desc) if @offer
   end
 
   def new
@@ -33,9 +34,6 @@ class OffersController < ApplicationController
   end
 
   def destroy
-    puts "Destroy action called"
-    puts "Offer: #{@offer.inspect}"
-    
     if @offer.destroy
       respond_to do |format|
         format.html { redirect_to venue_path(@offer.venue), notice: 'Offer was successfully deleted.' }
@@ -49,19 +47,27 @@ class OffersController < ApplicationController
     end
   end
 
+  def select_variant
+     puts "Params: #{params.inspect}"
+    @variant = @offer.variants.find(params[:variant_id])
+    
+    session[:selected_variants] ||= []
+    session[:selected_variants] << @variant.id
+    
+    redirect_to offer_path(@offer), notice: 'Variant selected successfully'
+  end
+
   private
 
   def set_venue
     @venue = Venue.find(params[:venue_id])
-    puts "Venue: #{@venue.inspect}"
   end
 
   def set_offer
     @offer = Offer.find(params[:id])
-    puts "Offer set: #{@offer.inspect}"
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :description)
+    params.require(:offer).permit(:title, :description, :base_price)
   end
 end

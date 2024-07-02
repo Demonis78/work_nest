@@ -1,4 +1,4 @@
-<%= turbo_stream.remove dom_i(@variant) %>
+<%= turbo_stream.remove dom_id(@variant) %>
 
   <%= turbo_stream.update "notice-container" do %>
     <div class="notice">Variant was successfully deleted.</div>

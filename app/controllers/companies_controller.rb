@@ -22,6 +22,6 @@ class CompaniesController < ApplicationController
   private
 
   def company_params
-    params.require(:company).permit(:name, address_attributes: [:street, :city, :state, :country])
+    params.require(:company).permit(:name, address_attributes: [:street, :city, :country])
   end
 end

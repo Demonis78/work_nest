@@ -1,9 +1,9 @@
-<h1><%= @venue.name %></h1>
+<h2><%= @venue.name %></h2>
 <p><%= @venue.description %></p>
 
-<h2>Offers</h2>
-<%= turbo_frame_tag "offers" do %>
-  <%= render @offers %>
+<h3>Offers</h3>
+<% @venue.offers.each do |offer| %>
+  <%= render partial: 'offers/offer', locals: { offer: offer } %>
 <% end %>
 
 <%= link_to 'Back to Venues', venues_path, class: 'btn btn-secondary' %>

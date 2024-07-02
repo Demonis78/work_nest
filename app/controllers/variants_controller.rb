@@ -17,7 +17,7 @@ class VariantsController < ApplicationController
     else
       render :new
     end
-  end
+  end 
 
   def destroy
     if @variant
