@@ -3,6 +3,7 @@ class VenuesController < ApplicationController
 
   def index
     @venues = Venue.all.sort_by(&:name)
+    @reservations = Reservation.all.order(created_at: :desc)
   end
 
   def show

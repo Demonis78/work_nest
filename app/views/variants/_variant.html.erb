@@ -2,5 +2,6 @@
   <p class="underline">Name: <%= variant.name %></p>
   <p>Price: <%= number_to_currency(variant.price) %></p>
   <p>Period: <%= variant.period %></p>
+  <%= button_to 'Select Variant', select_variant_offer_path(variant_id: variant.id), method: :post, class: 'btn btn-outline-primary btn-sm' %>
   <%= link_to 'Delete Variant', offer_variant_path(variant.offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %>
 </div>

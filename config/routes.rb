@@ -11,9 +11,10 @@ Rails.application.routes.draw do
 
   resources :venues do
     resources :offers, only: [:new, :create, :index, :show]
+    resources :reservations, only: [:index, :new, :create, :destroy]
   end
 
-  resources :offers, only: [:new, :create, :index, :show, :destroy] do
+  resources :offers, only: [:new, :create, :edit, :index, :show, :destroy] do
     resources :variants, only: [:new, :create, :destroy]
     member do
       post 'select_variant'

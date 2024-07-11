@@ -9,7 +9,7 @@
     <p>No offers available.</p>
   <% else %>
     <ul>
-      <% @offers.each do |offer| %>
+      <% @offers.sort_by { |offer| [offer.venue.name, offer.title] }.each do |offer| %>
         <li>
         <p>Venue: <%= offer.venue.name %></p>
         <h4><%= link_to offer.title, offer_path(offer) %></h4>

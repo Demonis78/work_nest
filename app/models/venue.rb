@@ -3,6 +3,7 @@ class Venue < ApplicationRecord
   accepts_nested_attributes_for :address
 
   has_many :offers, dependent: :destroy
+  has_many :reservation, dependent: :destroy
 
   validates :name, :description, presence: true
 end

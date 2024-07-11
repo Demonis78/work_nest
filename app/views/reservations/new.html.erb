@@ -1,0 +1,36 @@
+<h1>New Reservation</h1>
+
+<%= form_with(model: [@venue, @reservation], local: true) do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+        <% @reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :offer_id %>
+    <%= form.collection_select :offer_id, @offers, :id, :title %>
+  </div>
+
+  <div>
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.submit 'Create Reservation' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', reservations_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_28_142552) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_081830) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_28_142552) do
     t.index ["variant_id"], name: "index_orders_on_variant_id"
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "venue_id", null: false
+    t.bigint "offer_id", null: false
+    t.bigint "venue_admin_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_reservations_on_offer_id"
+    t.index ["venue_admin_id"], name: "index_reservations_on_venue_admin_id"
+    t.index ["venue_id"], name: "index_reservations_on_venue_id"
+  end
+
   create_table "variants", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -86,6 +99,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_28_142552) do
   add_foreign_key "offers", "venues"
   add_foreign_key "orders", "offers"
   add_foreign_key "orders", "variants"
+  add_foreign_key "reservations", "offers"
+  add_foreign_key "reservations", "venue_admins"
+  add_foreign_key "reservations", "venues"
   add_foreign_key "variants", "offers"
   add_foreign_key "venue_admins", "companies"
 end

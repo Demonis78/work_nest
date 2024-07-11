@@ -65,9 +65,12 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.3'
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'rails-controller-testing'
 
 gem "devise"
 gem 'bootstrap', '~> 5.1.3'

@@ -21,6 +21,7 @@ class OffersController < ApplicationController
     @offer = @venue.offers.build
   end
 
+  
   def create
     @offer = @venue.offers.build(offer_params)
     if @offer.save
@@ -30,6 +31,17 @@ class OffersController < ApplicationController
       end
     else
       render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @offer.update(offer_params)
+      redirect_to @offer, notice: 'Offer was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -46,9 +58,7 @@ class OffersController < ApplicationController
       end
     end
   end
-
   def select_variant
-     puts "Params: #{params.inspect}"
     @variant = @offer.variants.find(params[:variant_id])
     
     session[:selected_variants] ||= []
@@ -58,15 +68,12 @@ class OffersController < ApplicationController
   end
 
   private
-
   def set_venue
     @venue = Venue.find(params[:venue_id])
   end
-
   def set_offer
     @offer = Offer.find(params[:id])
   end
-
   def offer_params
     params.require(:offer).permit(:title, :description, :base_price)
   end
