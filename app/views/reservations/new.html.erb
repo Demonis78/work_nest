@@ -13,24 +13,24 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="field">
     <%= form.label :offer_id %>
     <%= form.collection_select :offer_id, @offers, :id, :title %>
   </div>
 
-  <div>
+   <div class="field">
     <%= form.label :start_date %>
-    <%= form.date_field :start_date %>
+    <%= form.text_field :start_date, data: { controller: "flatpickr" } %>
   </div>
 
-  <div>
+  <div class="field">
     <%= form.label :end_date %>
-    <%= form.date_field :end_date %>
+    <%= form.text_field :end_date, data: { controller: "flatpickr" } %>
   </div>
 
-  <div>
+  <div class="actions">
     <%= form.submit 'Create Reservation' %>
   </div>
 <% end %>
 
-<%= link_to 'Back', reservations_path %>
+<%= link_to 'Back', venue_reservations_path(@venue) %>

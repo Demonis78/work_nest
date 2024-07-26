@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   before_action :authenticate_venue_admin!
   before_action :set_venue, only: [:new, :create]
-  before_action :set_offer, only: [:show, :destroy, :select_variant]
+  before_action :set_offer, only: [:show, :destroy, :select_variant, :remove_variant]
   
   def index
     if params[:venue_id]
@@ -20,7 +20,6 @@ class OffersController < ApplicationController
   def new
     @offer = @venue.offers.build
   end
-
   
   def create
     @offer = @venue.offers.build(offer_params)
@@ -58,22 +57,37 @@ class OffersController < ApplicationController
       end
     end
   end
+
   def select_variant
     @variant = @offer.variants.find(params[:variant_id])
     
     session[:selected_variants] ||= []
     session[:selected_variants] << @variant.id
     
-    redirect_to offer_path(@offer), notice: 'Variant selected successfully'
+    redirect_to selected_variants_offers_path, notice: 'Variant selected successfully'
+  end
+
+  def remove_variant
+    session[:selected_variants].delete(params[:variant_id].to_i)
+    redirect_to selected_variants_offers_path, notice: 'Variant removed successfully'
+  end
+
+  def selected_variants
+    @selected_variants = Variant.where(id: session[:selected_variants] || [])
+    @total_price = @selected_variants.sum(&:price)
+    @venue_id = @selected_variants.first&.offer&.venue_id
   end
 
   private
+
   def set_venue
     @venue = Venue.find(params[:venue_id])
   end
+
   def set_offer
     @offer = Offer.find(params[:id])
   end
+
   def offer_params
     params.require(:offer).permit(:title, :description, :base_price)
   end

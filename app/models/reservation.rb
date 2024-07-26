@@ -8,6 +8,11 @@ class Reservation < ApplicationRecord
   validate :end_date_after_start_date
   validates :start_date, :end_date, presence: true
 
+  def total_price
+    days = (self.end_date - self.start_date).to_i
+    offer.base_price * days
+  end
+  
   private
 
   def end_date_after_start_date

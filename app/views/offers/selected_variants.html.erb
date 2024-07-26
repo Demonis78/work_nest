@@ -1,0 +1,21 @@
+<h1>Selected Variants</h1>
+
+<% if @selected_variants.any? %>
+  <ul>
+    <% @selected_variants.each do |variant| %>
+      <li>
+        Venue: <%= variant.offer.venue.name %> <br>
+        Offer: <%= variant.offer.title %> <br>
+        Variant: <%= variant.name %> <br>
+        Price: <%= number_to_currency(variant.price) %> <br>
+        Period: <%= variant.period %> <br>
+        <%= link_to 'Remove Variant', remove_variant_offer_path(variant.offer, variant_id: variant.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+      </li>
+    <% end %>
+  </ul>
+  <p>Total Price: <%= number_to_currency(@total_price) %></p>
+  <%= link_to 'Proceed to Reservation', new_venue_reservation_path(@venue_id), class: 'btn btn-primary' %>
+<% else %>
+  <p>No variants selected yet.</p>
+  <%= link_to 'Back to Offers', offers_path, class: 'btn btn-secondary' %>
+<% end %>

@@ -7,7 +7,7 @@ class ReservationsController < ApplicationController
   end
 
   def new
-    @reservation = @venue.reservation.build
+    @reservation = @venue.reservations.build
     @offers = @venue.offers
   end
 
@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
     @reservation.venue_admin = current_venue_admin
 
     if @reservation.save
-      redirect_to reservations_path, notice: 'Reservation was successfully created.'
+      redirect_to venue_reservations_path(@venue), notice: 'Reservation was successfully created.'
     else
       @offers = @venue.offers
       render :new

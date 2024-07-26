@@ -1,12 +1,13 @@
 <h1>Reservations</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Venue</th>
       <th>Offer</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>Price</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -15,15 +16,13 @@
       <tr>
         <td><%= reservation.venue.name %></td>
         <td><%= reservation.offer.title %></td>
-        <td><%= reservation.venue_admin.company_name %></td>
         <td><%= reservation.start_date %></td>
         <td><%= reservation.end_date %></td>
-        <td>
-          <%= link_to 'Cancel', venue_reservation_path(reservation.venue, reservation), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <td><%= number_to_currency(reservation.total_price) %></td>
+        <td><%= link_to 'Cancel', venue_reservation_path(reservation.venue, reservation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Reservation', new_venue_reservation_path %>
+<%= link_to 'New Reservation', new_venue_reservation_path, class: 'btn btn-primary' %>

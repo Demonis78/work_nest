@@ -18,8 +18,12 @@ Rails.application.routes.draw do
     resources :variants, only: [:new, :create, :destroy]
     member do
       post 'select_variant'
+      delete 'remove_variant'
+    end
+    collection do
+      get 'selected_variants'
+    end
   end
-end
 
   resources :variants, only: [] do
     resources :orders, only: [:new, :create, :show]
