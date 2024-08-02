@@ -1,7 +1,0 @@
-<%= turbo_stream.append "orders" %>
-  <%= render @order %>
-<% end %>
-
-<%= turbo_stream.update "notice-container" do %>
-  <div class="notice">Order was successfully created.</div>
-<% end %>

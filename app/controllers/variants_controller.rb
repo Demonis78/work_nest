@@ -11,7 +11,7 @@ class VariantsController < ApplicationController
     @variant = @offer.variants.build(variant_params)
     if @variant.save
       respond_to do |format|
-        format.html { redirect_to @offer, notice: 'Variant was successfully created.' }
+        format.html { redirect_to venue_path(@offer.venue), notice: 'Variant was successfully created.' }
         format.turbo_stream
       end
     else

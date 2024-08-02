@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   before_action :authenticate_venue_admin!
-  before_action :set_venue, only: [:new, :create]
-  before_action :set_offer, only: [:show, :destroy, :select_variant, :remove_variant]
+  before_action :set_venue, only: [:new, :create, :edit, :update]
+  before_action :set_offer, only: [:show, :edit, :destroy, :update, :select_variant, :remove_variant]
   
   def index
     if params[:venue_id]
@@ -15,6 +15,7 @@ class OffersController < ApplicationController
   def show
     @offer = Offer.find(params[:id])
     @variants ||= @offer.variants.order(price: :desc) if @offer
+    @venue = @offer.venue
   end
 
   def new
@@ -34,6 +35,7 @@ class OffersController < ApplicationController
   end
 
   def edit
+    @offer = Offer.find(params[:id])
   end
 
   def update
@@ -81,14 +83,14 @@ class OffersController < ApplicationController
   private
 
   def set_venue
-    @venue = Venue.find(params[:venue_id])
+    @venue = Venue.find_by(id: params[:venue_id])
   end
-
+  
   def set_offer
     @offer = Offer.find(params[:id])
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :description, :base_price)
+    params.require(:offer).permit(:title, :description, :venue_id, variant_attributes: [:id, :price_type, :price, :_destroy])
   end
 end

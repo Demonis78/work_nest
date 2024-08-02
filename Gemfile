@@ -77,3 +77,8 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 gem 'sassc', '~> 2.4'
 gem 'htmlbeautifier'
+
+#gitub - after dependabot alerts
+gem "actiontext", ">= 7.1.3.4"
+gem "actionpack", ">= 7.1.3.4"
+gem "rexml", ">= 3.3.2"

@@ -5,9 +5,9 @@ class Offer < ApplicationRecord
   has_many :reservations, dependent: :destroy
   
   accepts_nested_attributes_for :variants, allow_destroy: true
-  validates :title, :description, :base_price, presence: true
+  validates :title, :description, presence: true
 
   def total_price(selected_variant_ids)
-    base_price + variants.where(id: selected_variant_ids).sum(:price)
+    variants.where(id: selected_variant_ids).sum(:price)
   end
 end

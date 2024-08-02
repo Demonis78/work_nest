@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   before_action :set_venue, only: [:new, :create]
 
   def index
-    @reservations = Reservation.all
+    @reservations = @venue.reservations.order(start_date: :asc)
   end
 
   def new

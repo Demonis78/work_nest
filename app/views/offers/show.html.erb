@@ -1,6 +1,5 @@
 <h1><%= @offer.title %></h1>
 <p><%= @offer.description %></p>
-<p>Base Price: <%= number_to_currency(@offer.base_price) %></p>
 
 <% if @offer.venue %>
   <p>Venue: <%= link_to @offer.venue.name, venue_path(@offer.venue) %></p>
@@ -8,15 +7,18 @@
 <% end %>
 
 <h3>Variants</h3>
-<% @offer.variants.order(price: :desc).each do |variant| %>
-  <div class="variant">
-    <p>Name: <%= variant.name %></p>
-    <p>Price: <%= number_to_currency(variant.price) %></p>
-    <p>Period: <%= variant.period %></p>
-    <%= button_to 'Select Variant', select_variant_offer_path(@offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
-    <%= link_to 'Delete Variant', offer_variant_path(@offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
-  </div>
-<% end %>
+<div id="variants">
+  <% @offer.variants.order(price: :desc).each do |variant| %>
+    <div class="variant">
+      <p>Name: <%= variant.name %></p>
+      <p>Price: <%= number_to_currency(variant.price) %></p>
+      <p>Period: <%= variant.period %></p>
+      <%= button_to 'Select Variant', select_variant_offer_path(@offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
+      <%= link_to 'Delete Variant', offer_variant_path(@offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to 'Edit Offer', edit_offer_path(@offer), class: 'btn btn-primary' %>
-<%= link_to 'Back', offers_path, class: 'btn btn-secondary' %>
+<%= link_to 'New Variant', new_offer_variant_path(@offer), class: 'btn btn-outline-success btn-sm' %>
+<%= link_to 'Edit Offer', edit_offer_path(@offer), class: 'btn btn-primary btn-sm' %>
+<%= link_to 'Back', offers_path, class: 'btn btn-secondary btn-sm' %>

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :reservations, only: [:index, :new, :create, :destroy]
   end
 
-  resources :offers, only: [:new, :create, :edit, :index, :show, :destroy] do
+  resources :offers, only: [:new, :create, :edit, :index, :show, :update, :destroy] do
     resources :variants, only: [:new, :create, :destroy]
     member do
       post 'select_variant'
@@ -23,10 +23,6 @@ Rails.application.routes.draw do
     collection do
       get 'selected_variants'
     end
-  end
-
-  resources :variants, only: [] do
-    resources :orders, only: [:new, :create, :show]
   end
 
   get 'home/index'
