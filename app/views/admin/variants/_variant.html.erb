@@ -1,0 +1,10 @@
+<turbo-frame id="<%= dom_id(variant) %>">
+  <div class="variant" id="<%= dom_id(variant) %>">
+    <p>Name: <%= variant.name %></p>
+    <p>Price: <%= number_to_currency(variant.price) %></p>
+    <p>Period: <%= variant.period %></p>
+    <%= link_to 'Edit Variant', edit_admin_offer_variant_path(@offer, variant), class: 'btn btn-outline-primary' %>
+    <%= button_to 'Select Variant', select_variant_admin_offer_path(@offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
+    <%= link_to 'Delete Variant', admin_offer_variant_path(@offer, variant), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+  </div>
+</turbo-frame>

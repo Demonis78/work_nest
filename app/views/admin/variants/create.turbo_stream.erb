@@ -1,0 +1,8 @@
+<% if @existing_variant.present? %>
+  <%= turbo_stream.append "variants", partial: "admin/variants/variant", locals: { variant: @existing_variant } %>
+
+  <%= turbo_stream.update "notice-container" do %>
+    <div class="notice">Variant was successfully updated.</div>
+  <% end %>
+<% else %>
+<% end %>

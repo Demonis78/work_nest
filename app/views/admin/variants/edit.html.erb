@@ -1,0 +1,7 @@
+<h1>Edit Variant for <%= @offer.title %></h1>
+<turbo-frame id="<%= dom_id(@variant)%>">
+  <%= render "form" %>
+</turbo-frame>
+<%= link_to 'Back', admin_offer_path(@offer) %>
+
+

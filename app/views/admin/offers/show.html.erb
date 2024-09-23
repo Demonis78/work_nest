@@ -1,0 +1,21 @@
+<h1><%= @offer.title %></h1>
+  <p><%= @offer.description %></p>
+
+  <% if @offer.venue %>
+    <p>Venue: <%= link_to @offer.venue.name, admin_venue_path(@offer.venue) %></p>
+    <p>Address: <%= @offer.venue.address.street %>, <%= @offer.venue.address.city %>, <%= @offer.venue.address.country %></p>
+  <% end %>
+
+  <h3>Variants</h3>
+    <div id="variants">
+      <% @offer.variants.order(price: :desc).each do |variant| %>
+      <%= render "admin/variants/variant", variant: variant %>
+      <% end %>
+    </div>
+
+  <turbo-frame id="new_variant">
+    <%= link_to 'New Variant', new_admin_offer_variant_path(@offer), class: 'btn btn-outline-success btn-sm' %>
+  </turbo-frame>
+
+  <%= link_to 'Edit Offer', edit_admin_offer_path(@offer), class: 'btn btn-primary btn-sm' %>
+<%= link_to 'Back', admin_venue_offers_path(@offer.venue), class: 'btn btn-secondary' %>

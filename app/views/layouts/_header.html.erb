@@ -3,8 +3,8 @@
     <% if venue_admin_signed_in? %>
       <%= link_to 'Logout', logout_path, method: :delete %>
     <% else %> 
-      <%= link_to 'Sign up', new_venue_admin_registration_path %>
-      <%= link_to 'Login', new_venue_admin_session_path %>
+      <%= link_to 'Sign up', new_admin_registration_path %>
+      <%= link_to 'Login', new_admin_session_path %>
     <% end %>
   </nav>
 </header>

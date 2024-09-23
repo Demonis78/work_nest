@@ -1,21 +1,22 @@
-# app/models/reservation.rb
 class Reservation < ApplicationRecord
   belongs_to :venue
   belongs_to :offer
-  belongs_to :variant
   belongs_to :venue_admin, class_name: 'VenueAdmin', foreign_key: 'venue_admin_id'
-  
-  validates :venue_id, :offer_id, :venue_admin_id, presence: true
+  has_and_belongs_to_many :variants
+
+  validates :venue_id, :offer_id, :venue_admin_id, :start_date, :end_date, presence: true
   validate :end_date_after_start_date
-  validates :start_date, :end_date, presence: true
+  validate :dates_available
+
 
   def total_price(period = :daily)
-    if period == :monthly
-      months = (self.end_date.year * 12 + self.end_date.month) - (self.start_date.year * 12 + self.start_date.month)
-      variant.price * months
+    case period
+    when :monthly
+      months = (end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)
+      variants.sum { |variant| variant.price * months }
     else
-      days = (self.end_date - self.start_date).to_i
-      variant.price * days
+      days = (end_date - start_date).to_i
+      variants.sum { |variant| variant.price * days }
     end
   end
 
@@ -26,6 +27,15 @@ class Reservation < ApplicationRecord
 
     if end_date < start_date
       errors.add(:end_date, "must be after the start date")
+    end
+  end
+
+  def dates_available
+    overlapping_reservations = venue.reservations.where.not(id: id)
+      .where("(start_date, end_date) OVERLAPS (?, ?)", end_date, start_date)
+
+    if overlapping_reservations.exists?
+      errors.add(:base, "Wybrany termin jest zajęty dla tego obiektu.")
     end
   end
 end

@@ -19,10 +19,13 @@
         <td><%= reservation.start_date %></td>
         <td><%= reservation.end_date %></td>
         <td><%= number_to_currency(reservation.total_price) %></td>
-        <td><%= link_to 'Cancel', venue_reservation_path(reservation.venue, reservation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %></td>
+        <td>
+          <%= link_to 'Cancel', admin_venue_reservation_path(reservation.venue, reservation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Reservation', new_venue_reservation_path, class: 'btn btn-primary' %>
+<%= link_to 'New Reservation', new_admin_venue_reservation_path(@venue), class: 'btn btn-primary' %>
+<%= link_to 'Back to Offers', admin_offers_path(@venue), class: 'btn btn-secondary' %>

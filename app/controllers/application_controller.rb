@@ -9,17 +9,17 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    root_path
+    admin_root_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    root_path
+    admin_root_path
   end
 
   def authenticate_venue_admin!
       unless venue_admin_signed_in?
         flash[:alert] = "You must be logged in to place an order."
-        redirect_to new_venue_admin_session_path
+        redirect_to new_admin_session_path
       end
     end
 end

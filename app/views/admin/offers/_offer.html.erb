@@ -1,5 +1,5 @@
 <div id="<%= dom_id(offer) %>">
-  <h3><%= link_to offer.title, venue_offer_path(offer.venue, offer) %></h3>
+  <h3><%= link_to offer.title, admin_offer_path(offer) %></h3>
   <p><%= offer.description %></p>
 
   <% selected_variant_ids = session[:selected_variants] || [] %>
@@ -11,9 +11,9 @@
       <p>Variant: <%= variant.name %></p>
       <p>Price: <%= number_to_currency(variant.price) %></p>
       <p>Period: <%= variant.period %></p>
-      <%= button_to 'Select Variant', select_variant_offer_path(offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
+      <%= button_to 'Select Variant', select_variant_admin_offer_path(offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
     </div>
   <% end %>
 
-  <%= link_to 'Delete Offer', offer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+  <%= link_to 'Delete Offer',admin_offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 </div>

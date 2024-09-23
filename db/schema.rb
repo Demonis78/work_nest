@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_31_125333) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_03_074743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_125333) do
     t.index ["venue_id"], name: "index_reservations_on_venue_id"
   end
 
+  create_table "reservations_variants", id: false, force: :cascade do |t|
+    t.bigint "reservation_id", null: false
+    t.bigint "variant_id", null: false
+    t.index ["reservation_id", "variant_id"], name: "index_reservations_variants_on_reservation_id_and_variant_id", unique: true
+    t.index ["reservation_id"], name: "index_reservations_variants_on_reservation_id"
+    t.index ["variant_id"], name: "index_reservations_variants_on_variant_id"
+  end
+
   create_table "variants", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -83,6 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_125333) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "venue_admin_id"
+    t.index ["venue_admin_id"], name: "index_venues_on_venue_admin_id"
   end
 
   add_foreign_key "offers", "venues"
@@ -91,4 +101,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_125333) do
   add_foreign_key "reservations", "venues"
   add_foreign_key "variants", "offers"
   add_foreign_key "venue_admins", "companies"
+  add_foreign_key "venues", "venue_admins"
 end

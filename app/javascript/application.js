@@ -6,4 +6,4 @@ import Rails from "@rails/ujs"
 import * as bootstrap from "bootstrap"
 
 Rails.start()
-
+Turbo.start()

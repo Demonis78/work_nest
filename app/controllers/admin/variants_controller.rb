@@ -1,23 +1,46 @@
-class VariantsController < ApplicationController
-  before_action :set_offer, only: [:new, :create]
-  before_action :set_variant, only: [:destroy]
+class Admin::VariantsController < ApplicationController
+  before_action :set_offer, only: [:new, :create, :edit, :update, :show]
+  before_action :set_variant, only: [:edit, :update, :destroy, :show]
   before_action :authenticate_venue_admin!
 
   def new
     @variant = @offer.variants.build
   end
 
+  def show
+  end
+
+  def edit
+  end
+
   def create
     @variant = @offer.variants.build(variant_params)
     if @variant.save
       respond_to do |format|
-        format.html { redirect_to venue_path(@offer.venue), notice: 'Variant was successfully created.' }
+        format.html do 
+          flash[:notice] = "Variant was successfully created."
+          redirect_to admin_offer_path(@offer)
+        end
         format.turbo_stream
       end
     else
       render :new
     end
-  end 
+  end
+
+  def update
+    if @variant.update(variant_params)
+      respond_to do |format|
+        format.html do 
+          flash[:notice] = "Variant was successfully updated."
+          redirect_to admin_offer_path(@offer)
+        end
+        format.turbo_stream
+      end
+    else
+      render :edit
+    end
+  end
 
   def destroy
     if @variant
@@ -45,6 +68,6 @@ class VariantsController < ApplicationController
   end
 
   def variant_params
-    params.require(:variant).permit(:name, :price, :period)
+    params.require(:variant).permit(:price, :period, :offer_id)
   end
 end
