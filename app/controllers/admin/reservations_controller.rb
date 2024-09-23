@@ -1,4 +1,4 @@
-class Admin::ReservationsController < ApplicationController
+class Admin::ReservationsController < Admin::AdminController
   before_action :authenticate_venue_admin!
   before_action :set_venue, only: [:new, :create, :index, :destroy]
 
