@@ -1,13 +1,12 @@
 class Reservation < ApplicationRecord
   belongs_to :venue
   belongs_to :offer
-  belongs_to :venue_admin, class_name: 'VenueAdmin', foreign_key: 'venue_admin_id'
+  belongs_to :venue_admin, class_name: "VenueAdmin", foreign_key: "venue_admin_id"
   has_and_belongs_to_many :variants
 
   validates :venue_id, :offer_id, :venue_admin_id, :start_date, :end_date, presence: true
   validate :end_date_after_start_date
   validate :dates_available
-
 
   def total_price(period = :daily)
     case period
@@ -35,7 +34,7 @@ class Reservation < ApplicationRecord
       .where("(start_date, end_date) OVERLAPS (?, ?)", end_date, start_date)
 
     if overlapping_reservations.exists?
-      errors.add(:base, "Wybrany termin jest zajęty dla tego obiektu.")
+      errors.add(:base, "Selected date is busy.")
     end
   end
 end

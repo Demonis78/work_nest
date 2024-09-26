@@ -1,6 +1,6 @@
 <h1>All Offers</h1>
 
-<%= link_to 'New Offer', new_admin_venue_offer_path(@venue), class: 'btn btn-primary' %>
+<%= link_to "New Offer", new_admin_venue_offer_path(@venue), class: "btn btn-primary" %>
 
 <% @offers.each do |offer| %>
   <div class="offer">
@@ -17,7 +17,7 @@
         <p><%= variant.name %></p>
         <p>Price: <%= number_to_currency(variant.price) %></p>
         <p>Period: <%= variant.period %></p>
-        <%= button_to 'Select Variant', select_variant_admin_offer_path(offer, variant_id: variant.id), method: :post, class: 'btn btn-outline-primary' %>
+        <%= button_to "Select Variant", select_variant_admin_offer_path(offer, variant_id: variant.id), method: :post, class: "btn btn-outline-primary" %>
       </div>
     <% end %>
   </div>

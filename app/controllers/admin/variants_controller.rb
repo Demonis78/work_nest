@@ -1,4 +1,4 @@
-class Admin::VariantsController < ApplicationController
+class Admin::VariantsController < Admin::AdminController
   before_action :set_offer, only: [:new, :create, :edit, :update, :show]
   before_action :set_variant, only: [:edit, :update, :destroy, :show]
   before_action :authenticate_venue_admin!
