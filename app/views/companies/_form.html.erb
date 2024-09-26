@@ -20,7 +20,7 @@
       <%= address_form.label :street %>
       <%= address_form.text_field :street %>
     </div>
-    
+
     <div class="field">
       <%= address_form.label :city %>
       <%= address_form.text_field :city %>
@@ -33,6 +33,6 @@
   <% end %>
 
   <div class="actions">
-    <%= form.submit 'Create Company' %>
+    <%= form.submit company.new_record? ? 'Create Company' : 'Update Company' %>
   </div>
 <% end %>

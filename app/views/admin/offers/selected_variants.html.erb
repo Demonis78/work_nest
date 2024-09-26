@@ -9,13 +9,13 @@
         Variant: <%= variant.name %> <br>
         Price: <%= number_to_currency(variant.price) %> <br>
         Period: <%= variant.period %> <br>
-        <%= link_to 'Remove Variant', remove_variant_admin_offer_path(variant.offer, variant_id: variant.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
-        <%= link_to 'Proceed to Reservation', new_admin_venue_reservation_path(@venue_id, offer_id: variant.offer_id, variant_id: variant.id), class: 'btn btn-primary' %>
+        <%= link_to "Remove Variant", remove_variant_admin_offer_path(variant.offer, variant_id: variant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+        <%= link_to "Proceed to Reservation", new_admin_venue_reservation_path(@venue_id, offer_id: variant.offer_id, variant_id: variant.id), class: "btn btn-primary" %>
       </li>
     <% end %>
   </ul>
   <p>Total Price: <%= number_to_currency(@total_price) %></p>
 <% else %>
   <p>No variants selected yet.</p>
-  <%= link_to 'Back to Offers', offers_path, class: 'btn btn-secondary' %>
+  <%= link_to "Back to Offers", offers_path, class: "btn btn-secondary" %>
 <% end %>
