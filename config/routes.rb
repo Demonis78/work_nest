@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   devise_for :venue_admins, path: "admin", controllers: {
-    registrations: 'admin/registrations'
-  }
-  
+                              registrations: "admin/registrations",
+                            }
+
   devise_scope :venue_admin do
-    delete 'logout', to: 'devise/sessions#destroy', as: :logout
+    delete "logout", to: "devise/sessions#destroy", as: :logout
   end
 
   namespace :admin do
     resources :companies, only: [:new, :create]
     resources :offers, only: [:index]
-    
+
     resources :venues do
       resources :reservations, only: [:index, :new, :create, :destroy]
       resources :offers, only: [:new, :index]
@@ -19,11 +19,11 @@ Rails.application.routes.draw do
     resources :offers, only: [:create, :edit, :show, :update, :destroy] do
       resources :variants, only: [:new, :edit, :create, :destroy, :show, :update]
       member do
-        post 'select_variant'
-        delete 'remove_variant'
+        post "select_variant"
+        delete "remove_variant"
       end
       collection do
-        get 'selected_variants'
+        get "selected_variants"
       end
     end
 
@@ -32,6 +32,12 @@ Rails.application.routes.draw do
   end
 
   root "home#index"
+  resources :venues, only: [] do
+    collection do
+      post :search
+      get :search
+    end
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

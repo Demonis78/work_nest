@@ -1,0 +1,19 @@
+<h2> Showing results for <%= @location %> </h2>
+
+<% if @venues.any? %>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @venues.each do |venue| %>
+      <div class="col">
+        <div class="card">
+          <img src="//placehold.co/400x200" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= venue.name %></h5>
+            <p class="card-text"> <%= venue.description %></p>
+            <a href="#" class="btn btn-primary">Go to Venue</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
