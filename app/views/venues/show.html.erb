@@ -1,0 +1,32 @@
+<h2><%= @venue.name %></h2>
+<p><%= @venue.description %></p>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% @venue.offers.each do |offer| %>
+    <div class="col">
+      <div class="card h-100">
+        <img src="//placehold.co/400x200" class="card-img-top" alt="<%= offer.title %>">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= offer.title %></h5>
+          <p class="card-text"><%= offer.description.presence || "No description available" %></p>
+          <hr class="my-2">
+         
+          <% if offer.variants.any? %>
+            <ul class="list-group list-group-flush">
+              <% offer.variants.each do |variant| %>
+                <li class="list-group-item">
+                  <strong>Variant:</strong> <%= variant.name %>
+                  <br>
+                  <strong>Price:</strong> <%= number_to_currency(variant.price) %>/<%= variant.period %>
+                    <%= button_to "Select Variant", select_variant_admin_offer_path(offer, variant_id: variant.id), method: :post, class: "btn btn-outline-primary" %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No variants available.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
