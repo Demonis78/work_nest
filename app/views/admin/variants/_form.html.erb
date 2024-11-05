@@ -11,17 +11,22 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :name %>
+    <%= form.number_field :name %>
+  </div>
+  
+  <div class="field">
     <%= form.label :price %>
     <%= form.number_field :price %>
   </div>
 
    <div class="field">
-    <%= form.label :period, 'Select Period' %>
+    <%= form.label :period, "Select Period" %>
     <%= form.select :period, options_for_select(period_options) %>
   </div>
 
   <div class="actions">
-    <%= form.submit 'Create Variant' %>
+    <%= form.submit "Create Variant" %>
     <% if @variant.persisted? %>
       <%= link_to "Cancel", admin_offer_variant_path(@offer, @variant) %>
     <% else %>

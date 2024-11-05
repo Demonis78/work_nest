@@ -21,7 +21,7 @@ class Admin::AdminController < ApplicationController
   def authenticate_venue_admin!
     unless venue_admin_signed_in?
       flash[:alert] = "You must be logged in to place an order."
-      redirect_to new_admin_session_path
+      redirect_to new_venue_admin_session_path
     end
   end
 end

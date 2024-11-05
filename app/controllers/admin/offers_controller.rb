@@ -9,6 +9,7 @@ class Admin::OffersController < Admin::AdminController
       @offers = @venue ? @venue.offers : []
     else
       @offers = Offer.all
+      @venue = nil
     end
   end
 
@@ -91,7 +92,7 @@ class Admin::OffersController < Admin::AdminController
   private
 
   def set_venue
-    @venue = Venue.find_by(id: params[:venue_id])
+    @venue = Venue.find_by(id: params[:venue_id]) if params[:venue_id]
   end
   
   def set_offer

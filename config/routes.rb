@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     resources :venues do
       resources :reservations, only: [:index, :new, :create, :destroy]
-      resources :offers, only: [:new, :index]
+      resources :offers, only: [:new, :index, :create]
     end
 
     resources :offers, only: [:create, :edit, :show, :update, :destroy] do
