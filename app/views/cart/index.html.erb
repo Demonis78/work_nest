@@ -1,0 +1,32 @@
+<h2>Cart</h2>
+
+<%= turbo_frame_tag "cart-index" do %>
+  <% if @selected_variants.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Offer</th>
+          <th>Variant</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @selected_variants.each do |variant| %>
+          <tr>
+            <td><%= variant.offer.venue.name %></td>
+            <td><%= variant.name %></td>
+            <td><%= number_to_currency(variant.price) %></td>
+            <td class="ml-3">
+              <%= link_to remove_variant_cart_index_path(variant.id),  data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }, class: 'bi bi-cart-dash' do %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Your cart is empty.</p>
+  <% end %>
+<% end %>
+<%= link_to "Continue Booking", root_path, class: "btn btn-primary" %>
