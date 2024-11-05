@@ -22,7 +22,7 @@
                 <%= link_to cart_index_path, class: "nav-link" do %>
                   Cart  
                   <span id= "selected-variants-count" class="p-1 link-info">
-                    <%= (session[:selected_variants] || []).size %>
+                    <%= session[:selected_variants].size %>
                   </span>
                 <% end %>
               </li>
