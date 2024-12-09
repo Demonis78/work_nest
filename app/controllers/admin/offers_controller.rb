@@ -5,7 +5,7 @@ class Admin::OffersController < Admin::AdminController
   
   def index
     if params[:venue_id]
-      @venue = Venue.find_by(id: params[:venue_id])
+      @venue = Venue.find(params[:venue_id])
       @offers = @venue ? @venue.offers : []
     else
       @offers = Offer.all

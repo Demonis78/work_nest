@@ -1,4 +1,6 @@
-<h1>Offers</h1>
+<h1>All Offers</h1>
+
+<%= link_to "New Offer", new_admin_venue_offer_path(@venue), class: "btn btn-primary" %>
 
 <% @offers.each do |offer| %>
   <div class="offer">

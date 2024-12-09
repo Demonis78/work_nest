@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :companies, only: [:new, :create]
-    resources :offers, only: [:index]
+    resources :offers, only: [:new, :index, :create]
 
     resources :venues do
       resources :reservations, only: [:index, :new, :create, :destroy]
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   root "home#index"
+
   resources :venues, only: [:show] do
     collection do
       post :search

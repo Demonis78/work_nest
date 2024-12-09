@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Work Nest</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module", defer: true %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+<head>
+  <title>Work Nest</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module", defer: true %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <%= link_to 'Home', admin_root_path, class: "nav-link" %>
+            </li>
+            <!--
+            <li class="nav-item">
+              <%# <%=  link_to admin_root_path, class: "nav-link" do %> %>
+                Cart  
+                <span id= "selected-variants-count" class="p-1 link-info"> 
+                  <%# <%=  session[:selected_variants].size %> %>
+                </span> 
+              <%# <% end %> %>
+            </li> 
+            -->
+            
+            <% if venue_admin_signed_in? %>
               <li class="nav-item">
-                <%= link_to "Home", admin_root_path, class: "nav-link" %>
+                <%= link_to 'Logout', logout_path, method: :delete, class: "nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Login', new_venue_admin_session_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= link_to cart_index_path, class: "nav-link" do %>
-                  Cart  
-                  <span id= "selected-variants-count" class="p-1 link-info">
-                    <%= session[:selected_variants].size %>
-                  </span>
-                <% end %>
+                <%= link_to 'Sign Up', new_venue_admin_registration_path, class: "nav-link" %>
               </li>
-              <% if venue_admin_signed_in? %>
-                <li class="nav-item">
-                  <%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                  <%= link_to "Login", new_venue_admin_session_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Sign Up", new_venue_admin_registration_path, class: "nav-link" %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+            <% end %>
+          </ul>
         </div>
-      </nav>
-    </header>
-    <main class="container mt-4">
-      <div id="notice-container"><%= notice %></div>
-      <div class="content">
-        <%= yield %>
       </div>
-    </main>
-    <div class="card-footer text-center text-body-secondary">
-      <p>&copy; 2024 Work Nest. All rights reserved.</p>
+    </nav>
+  </header>
+
+  <main class="container mt-4">
+    <div id="notice-container"><%= notice %></div>
+    <div class="content">
+      <%= yield %>
     </div>
-  </body>
+  </main>
+
+  <div class="card-footer text-center text-body-secondary">
+    <p>&copy; 2024 Work Nest. All rights reserved.</p>
+  </div>
+</body>
 </html>
