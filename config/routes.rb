@@ -32,11 +32,20 @@ Rails.application.routes.draw do
   end
 
   root "home#index"
-  resources :venues, only: [] do
+
+  resources :venues, only: [:show] do
     collection do
       post :search
       get :search
+      get "selected_variants"
     end
+  end
+
+  resources :cart, only: [:index ] do
+    collection do
+      post :select_variant
+      delete 'remove_variant/:variant_id', to: 'cart#remove_variant', as: 'remove_variant'
+    end  
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
