@@ -17,5 +17,5 @@
   <p>Total Price: <%= number_to_currency(@total_price) %></p>
 <% else %>
   <p>No variants selected yet.</p>
-  <%= link_to "Back to Offers", offers_path, class: "btn btn-secondary" %>
+  <%= link_to "Back to Offers", admin_offers_path, class: "btn btn-secondary" %>
 <% end %>
