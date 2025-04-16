@@ -14,16 +14,10 @@
         <% @selected_variants.each do |variant| %>
           <tr>
             <td><%= variant.offer.venue.name %></td>
-            <td>
-              <% if variant.name.present? && variant.period.present? %>
-                <%= variant.name %> / <%= variant.period %>
-              <% elsif variant.period.present? %>
-                <%= variant.period %>
-              <% end %>
-            </td>
-             <td><%= number_to_currency(variant.price) %></td>
-            <td class="">
-              <%= link_to remove_variant_cart_index_path(variant.id),  data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }, class: 'bi bi-cart-dash ms-3' do %>
+             <td><%= variant.name %></td>
+            <td><%= number_to_currency(variant.price) %></td>
+            <td class="ml-3">
+              <%= link_to remove_variant_cart_index_path(variant.id),  data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }, class: 'bi bi-cart-dash' do %>
               <% end %>
             </td>
           </tr>
