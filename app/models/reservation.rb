@@ -1,7 +1,7 @@
 class Reservation < ApplicationRecord
   belongs_to :venue
   belongs_to :offer
-  belongs_to :venue_admin, class_name: "VenueAdmin", foreign_key: "venue_admin_id"
+  belongs_to :venue_admin, class_name: 'VenueAdmin', foreign_key: 'venue_admin_id'
   has_and_belongs_to_many :variants
 
   validates :venue_id, :offer_id, :venue_admin_id, :start_date, :end_date, presence: true
@@ -24,17 +24,17 @@ class Reservation < ApplicationRecord
   def end_date_after_start_date
     return if end_date.blank? || start_date.blank?
 
-    if end_date < start_date
-      errors.add(:end_date, "must be after the start date")
-    end
+    return unless end_date < start_date
+
+    errors.add(:end_date, 'must be after the start date')
   end
 
   def dates_available
     overlapping_reservations = venue.reservations.where.not(id: id)
-      .where("(start_date, end_date) OVERLAPS (?, ?)", end_date, start_date)
+                                    .where('(start_date, end_date) OVERLAPS (?, ?)', end_date, start_date)
 
-    if overlapping_reservations.exists?
-      errors.add(:base, "Selected date is busy.")
-    end
+    return unless overlapping_reservations.exists?
+
+    errors.add(:base, 'Selected date is busy.')
   end
 end

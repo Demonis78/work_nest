@@ -1,8 +1,7 @@
 class Admin::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
 
-  def create
-  end
+  def create; end
 
   protected
 
@@ -10,5 +9,3 @@ class Admin::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:company_name])
   end
 end
-
-

@@ -12,5 +12,3 @@ class Venue < ApplicationRecord
     end.flatten
   end
 end
-
-

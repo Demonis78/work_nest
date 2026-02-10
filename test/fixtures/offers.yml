@@ -3,11 +3,9 @@
 one:
   title: MyString
   description: MyText
-  price: 9.99
   venue: one
 
 two:
   title: MyString
   description: MyText
-  price: 9.99
   venue: two

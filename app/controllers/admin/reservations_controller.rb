@@ -1,6 +1,6 @@
 class Admin::ReservationsController < Admin::AdminController
   before_action :authenticate_venue_admin!
-  before_action :set_venue, only: [:new, :create, :index, :destroy]
+  before_action :set_venue, only: %i[new create index destroy]
 
   def index
     @reservations = @venue.reservations.order(start_date: :asc)
@@ -17,8 +17,8 @@ class Admin::ReservationsController < Admin::AdminController
     end
 
     @unavailable_dates = @venue.reservations
-                          .where(offer: @offer)
-                          .pluck(:start_date, :end_date)
+                               .where(offer: @offer)
+                               .pluck(:start_date, :end_date)
 
     @reservation.offer = @offer
     @reservation.variants << @variant if @variant

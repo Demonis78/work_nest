@@ -18,7 +18,7 @@
                   <strong>Variant:</strong> <%= variant.name %>
                   <br>
                   <strong>Price:</strong> <%= number_to_currency(variant.price) %>/<%= variant.period %>
-                    <%= button_to "Select Variant", select_variant_admin_offer_path(offer, variant_id: variant.id), method: :post, class: "btn btn-outline-primary" %>
+                  <%= button_to "Select Variant", select_variant_cart_index_path(variant_id: variant.id), method: :post, class: "btn btn-outline-primary" %>
                 </li>
               <% end %>
             </ul>
