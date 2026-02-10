@@ -1,24 +1,22 @@
 class Admin::VariantsController < Admin::AdminController
-  before_action :set_offer, only: [:new, :create, :edit, :update, :show]
-  before_action :set_variant, only: [:edit, :update, :destroy, :show]
+  before_action :set_offer, only: %i[new create edit update show]
+  before_action :set_variant, only: %i[edit update destroy show]
   before_action :authenticate_venue_admin!
 
   def new
     @variant = @offer.variants.build
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @variant = @offer.variants.build(variant_params)
     if @variant.save
       respond_to do |format|
-        format.html do 
-          flash[:notice] = "Variant was successfully created."
+        format.html do
+          flash[:notice] = 'Variant was successfully created.'
           redirect_to admin_offer_path(@offer)
         end
         format.turbo_stream
@@ -31,8 +29,8 @@ class Admin::VariantsController < Admin::AdminController
   def update
     if @variant.update(variant_params)
       respond_to do |format|
-        format.html do 
-          flash[:notice] = "Variant was successfully updated."
+        format.html do
+          flash[:notice] = 'Variant was successfully updated.'
           redirect_to admin_offer_path(@offer)
         end
         format.turbo_stream
@@ -52,11 +50,14 @@ class Admin::VariantsController < Admin::AdminController
     else
       respond_to do |format|
         format.html { redirect_to root_path, alert: 'Variant not found.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("notice-container", partial: "shared/flash", locals: { flash: { alert: 'Variant not found.' } }) }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('notice-container', partial: 'shared/flash',
+                                                                        locals: { flash: { alert: 'Variant not found.' } })
+        end
       end
     end
   end
-  
+
   private
 
   def set_offer

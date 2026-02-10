@@ -1,4 +1,4 @@
-<h2> Showing results for <%= @location %> </h2>
+<h2>All Venues</h2>
 
 <% if @venues.any? %>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -9,11 +9,18 @@
           <div class="card-body">
             <h5 class="card-title"><%= venue.name %></h5>
             <p class="card-text"><%= venue.description %></p>
-            <%= link_to 'Go to Venue', venue_path(venue), class: 'btn btn-primary' %>
+            <% if venue.address.present? %>
+              <p class="card-text text-muted">
+                <%= venue.address.street %>, <%= venue.address.city %>, <%= venue.address.country %>
+              </p>
+            <% end %>
+            <%= link_to 'View details', venue_path(venue), class: 'btn btn-primary' %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
+<% else %>
+  <p>No venues available yet.</p>
 <% end %>
 

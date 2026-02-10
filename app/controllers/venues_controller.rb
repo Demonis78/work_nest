@@ -1,9 +1,13 @@
 class VenuesController < ApplicationController
   before_action :cache_location, only: [:search]
 
+  def index
+    @venues = Venue.includes(:address).order(:name)
+  end
+
   def search
     @location = cached_location
-    @venues = Venue.joins(:address).where("addresses.city like ?", "%#{cached_location}%")
+    @venues = Venue.joins(:address).where('addresses.city like ?', "%#{cached_location}%")
   end
 
   def show

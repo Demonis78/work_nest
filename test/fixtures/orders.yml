@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  duration: MyString
-  offer: one
-
-two:
-  duration: MyString
-  offer: two

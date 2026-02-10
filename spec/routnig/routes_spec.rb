@@ -5,11 +5,11 @@ RSpec.describe 'Routing', type: :routing do
     expect(get: '/').to route_to('home#index')
   end
 
-  it 'routes venues to venues#index' do
-    expect(get: '/venues').to route_to('venues#index')
+  it 'routes venue show to venues#show' do
+    expect(get: '/venues/1').to route_to('venues#show', id: '1')
   end
 
-  it 'routes offers to offers#index' do
-    expect(get: '/offers').to route_to('offers#index')
+  it 'routes venue search to venues#search' do
+    expect(get: '/venues/search').to route_to('venues#search')
   end
 end

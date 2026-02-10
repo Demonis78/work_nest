@@ -1,5 +1,6 @@
 class Admin::VenuesController < Admin::AdminController
-  before_action :set_venue, only: [:edit, :update, :destroy]
+  before_action :authenticate_venue_admin!
+  before_action :set_venue, only: %i[edit update destroy]
 
   def index
     @venues = Venue.all.sort_by(&:name)
@@ -10,7 +11,7 @@ class Admin::VenuesController < Admin::AdminController
     @venue = Venue.find(params[:id])
     @offers = @venue.offers.includes(:variants)
   end
-  
+
   def new
     @venue = Venue.new
     @venue.build_address
@@ -20,7 +21,7 @@ class Admin::VenuesController < Admin::AdminController
     @venue = Venue.new(venue_params)
     if @venue.save
       respond_to do |format|
-        format.html {redirect_to @venue, notice: 'Venue was successfully created.'}
+        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
         format.turbo_stream
       end
     else
@@ -28,8 +29,7 @@ class Admin::VenuesController < Admin::AdminController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @venue.update(venue_params)
@@ -59,6 +59,6 @@ class Admin::VenuesController < Admin::AdminController
   end
 
   def venue_params
-    params.require(:venue).permit(:name, :description, address_attributes: [:street, :city, :country])
+    params.require(:venue).permit(:name, :description, address_attributes: %i[street city country])
   end
 end

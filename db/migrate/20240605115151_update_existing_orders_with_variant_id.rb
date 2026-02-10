@@ -3,13 +3,12 @@ class UpdateExistingOrdersWithVariantId < ActiveRecord::Migration[6.1]
     Order.find_each do |order|
       variant = Variant.find_by(offer_id: order.offer_id)
       if variant
-        order.update_column(:variant_id, variant.id) 
+        order.update_column(:variant_id, variant.id)
       else
-        order.destroy 
+        order.destroy
       end
     end
   end
 
-  def down
-  end
+  def down; end
 end

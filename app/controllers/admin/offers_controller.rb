@@ -1,8 +1,8 @@
 class Admin::OffersController < Admin::AdminController
   before_action :authenticate_venue_admin!
-  before_action :set_venue, only: [:new, :create, :edit, :update]
-  before_action :set_offer, only: [:show, :edit, :destroy, :update, :select_variant, :remove_variant]
-  
+  before_action :set_venue, only: %i[new create edit update]
+  before_action :set_offer, only: %i[show edit destroy update select_variant remove_variant]
+
   def index
     if params[:venue_id]
       @venue = Venue.find(params[:venue_id])
@@ -25,7 +25,7 @@ class Admin::OffersController < Admin::AdminController
       @offer = @venue.offers.build
     end
   end
-  
+
   def create
     if @venue.nil?
       redirect_to admin_offers_path, alert: 'Venue not found.'
@@ -42,8 +42,7 @@ class Admin::OffersController < Admin::AdminController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @offer.update(offer_params)
@@ -69,7 +68,7 @@ class Admin::OffersController < Admin::AdminController
 
   def select_variant
     @variant = @offer.variants.find(params[:variant_id])
-    
+
     session[:selected_variants] ||= []
     session[:selected_variants] |= [@variant.id]
   end
@@ -84,9 +83,9 @@ class Admin::OffersController < Admin::AdminController
     @total_price = @selected_variants.sum(&:price)
     @venue_id = @selected_variants.first&.offer&.venue_id
 
-    if @venue_id.nil?
-      redirect_to admin_offers_path, alert: 'No variants selected or unable to determine venue.'
-    end
+    return unless @venue_id.nil?
+
+    redirect_to admin_offers_path, alert: 'No variants selected or unable to determine venue.'
   end
 
   private
@@ -94,12 +93,13 @@ class Admin::OffersController < Admin::AdminController
   def set_venue
     @venue = Venue.find_by(id: params[:venue_id]) if params[:venue_id]
   end
-  
+
   def set_offer
     @offer = Offer.find(params[:id])
   end
 
   def offer_params
-    params.require(:offer).permit(:title, :description, :venue_id, variant_attributes: [:id, :price_type, :price, :_destroy])
+    params.require(:offer).permit(:title, :description, :venue_id,
+                                  variant_attributes: %i[id price_type price _destroy])
   end
 end
