@@ -17,19 +17,18 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <%= link_to 'Home', root_path, class: "nav-link" %>
+              <%= link_to 'Home', admin_root_path, class: "nav-link" %>
             </li>
+            <!--
             <li class="nav-item">
-              <%= link_to cart_index_path, class: "nav-link position-relative" do %>
-                Cart
-                <% count = (session[:selected_variants] || []).size %>
-                <% if count.positive? %>
-                  <span id="selected-variants-count" class="badge bg-info text-dark ms-1">
-                    <%= count %>
-                  </span>
-                <% end %>
-              <% end %>
-            </li>
+              <%# <%=  link_to admin_root_path, class: "nav-link" do %> %>
+                Cart  
+                <span id= "selected-variants-count" class="p-1 link-info"> 
+                  <%# <%=  session[:selected_variants].size %> %>
+                </span> 
+              <%# <% end %> %>
+            </li> 
+            -->
             
             <% if venue_admin_signed_in? %>
               <li class="nav-item">

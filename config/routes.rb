@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :companies, only: %i[new create]
-    resources :offers, only: %i[new index create]
+    resources :companies, only: [:new, :create]
+    resources :offers, only: [:new, :index, :create]
 
     resources :venues do
       resources :reservations, only: %i[index new create destroy]
@@ -31,9 +31,9 @@ Rails.application.routes.draw do
     root 'home#index'
   end
 
-  root 'home#index'
+  root "home#index"
 
-  resources :venues, only: %i[index show] do
+  resources :venues, only: [:show] do
     collection do
       post :search
       get :search

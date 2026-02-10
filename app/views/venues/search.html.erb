@@ -8,8 +8,8 @@
           <img src="<%= venue_image_url(venue) %>" class="card-img-top" alt="<%= venue.address&.city || 'Venue image' %>">
           <div class="card-body">
             <h5 class="card-title"><%= venue.name %></h5>
-            <p class="card-text"><%= venue.description %></p>
-            <%= link_to 'Go to Venue', venue_path(venue), class: 'btn btn-primary' %>
+            <p class="card-text"> <%= venue.description %></p>
+            <a href="#" class="btn btn-primary">Go to Venue</a>
           </div>
         </div>
       </div>
