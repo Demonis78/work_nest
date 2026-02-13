@@ -1,20 +1,17 @@
 <% unless venue_admin_signed_in? %>
-  <p>Logged in as <%= current_venue_admin.email %></p>
+  <p>Logged in as <%= current_venue_admin %></p>
 <% end %>
-  <h1>Welcome to Work Nest</h1>
-
-  <h1>Available Offers</h1>
-
-  <% if @offers.empty? %>
-    <p>No offers available.</p>
-  <% else %>
-    <ul>
-      <% @offers.sort_by { |offer| [offer.venue.name, offer.title] }.each do |offer| %>
-        <li>
+<h1>Welcome to Work Nest</h1>
+<h1>Available Offers</h1>
+<% if @offers.empty? %>
+  <p>No offers available.</p>
+<% else %>
+  <ul>
+    <% @offers.sort_by { |offer| [offer.venue.name, offer.title] }.each do |offer| %>
+      <li>
         <p>Venue: <%= offer.venue.name %></p>
         <h4><%= link_to offer.title, admin_offer_path(offer) %></h4>
-        </li>
-      <% end %>
-    </ul>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
-
