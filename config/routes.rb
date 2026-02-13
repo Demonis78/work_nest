@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :venues, only: [:show] do
+  resources :venues, only: [:show, :index] do
     collection do
       post :search
       get :search
