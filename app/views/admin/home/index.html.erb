@@ -1,5 +1,5 @@
-<% unless venue_admin_signed_in? %>
-  <p>Logged in as <%= current_venue_admin %></p>
+<% if venue_admin_signed_in? %>
+  <p>Logged in as <%= current_venue_admin.email %></p>
 <% end %>
 <h1>Welcome to Work Nest</h1>
 <h1>Available Offers</h1>

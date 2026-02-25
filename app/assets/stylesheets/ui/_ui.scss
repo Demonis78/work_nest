@@ -1,0 +1,13 @@
+@import './card';
+
+.custom-logo {
+    height: 120px; // Zwiększone, bo obrazek ma duże białe marginesy
+    width: auto;
+    object-fit: contain;
+    margin: -20px 0; // Trik: ujemny margines niweluje puste miejsce w pliku graficznym
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
